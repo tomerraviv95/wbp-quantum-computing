@@ -17,6 +17,7 @@ class ChannelModels(Enum):
 class DecoderType(Enum):
     bp = 'bp'
     wbp = 'wbp'
+    hd = 'hd'
 
 
 class ModulationType(Enum):

@@ -30,3 +30,6 @@ class DecoderTrainer(nn.Module):
 
     def train(self):
         pass
+
+    def initialize_layers(self):
+        pass

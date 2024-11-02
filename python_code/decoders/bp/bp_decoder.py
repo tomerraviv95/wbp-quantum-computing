@@ -30,9 +30,6 @@ class BPDecoder(DecoderTrainer):
     def calc_loss(self, decision, labels):
         pass
 
-    def single_training(self, tx: torch.Tensor, rx: torch.Tensor):
-        pass
-
     def forward(self, x, mode: Phase = Phase.TEST):
         """
         compute forward pass in the network

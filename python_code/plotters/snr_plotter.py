@@ -53,5 +53,5 @@ def snr_plotter(methods):
 
 
 if __name__ == "__main__":
-    methods = ['wbp']
+    methods = ['bp', 'wbp']
     snr_plotter(methods)

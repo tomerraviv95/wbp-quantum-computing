@@ -6,7 +6,7 @@ blocks_num: 1000 # number of validation frames. values: int.
 code_type: 'BCH' # ['BCH','POLAR']
 code_bits: 63
 message_bits: 30
-decoder_type: 'wbp' # ['bp','wbp']
+decoder_type: 'hd' # ['bp','wbp','hd]
 
 # datasets
 channel_model: 'AWGN' # ['AWGN','BSC']
