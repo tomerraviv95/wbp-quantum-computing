@@ -36,6 +36,7 @@ class BPDecoder(DecoderTrainer):
         :param x: [batch_size,N]
         :return: decoded word [batch_size,N]
         """
+        x = x.float()
         # initialize parameters
         output_list = [0] * self.iteration_num
 

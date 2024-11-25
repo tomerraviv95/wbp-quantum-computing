@@ -14,6 +14,5 @@ class Encoder:
         print(f"Encoding data with {conf.code_type} ({conf.code_bits}, {conf.message_bits})")
 
     def encode(self, mx: np.array) -> np.array:
-        reshaped_mx = mx.reshape(-1, conf.message_bits)
-        tx = (np.dot(reshaped_mx, self.code_gm) % 2)
-        return tx.reshape(mx.shape[0], -1)
+        tx = np.dot(mx, self.code_gm) % 2
+        return tx

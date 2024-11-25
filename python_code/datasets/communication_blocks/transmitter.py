@@ -13,8 +13,7 @@ CHANNELS_DICT = {ChannelModels.AWGN.name: AWGNChannel,
 
 class Transmitter:
 
-
-    def __init__(self, channel_model: str):
+    def __init__(self, channel_model: str, rate: float):
         print(f"Transmitting over {channel_model} channel")
         self._channel_model = CHANNELS_DICT[channel_model]
         if ChannelModels.AWGN.name == channel_model:
@@ -24,7 +23,8 @@ class Transmitter:
         else:
             raise ValueError("No such channel!")
         self._channel_model_name = channel_model
+        self._rate = rate
 
     def transmit(self, tx: np.ndarray) -> Tuple[np.ndarray, np.ndarray]:
-        rx = self._channel_model.transmit(tx, self._noise_metric)
+        rx = self._channel_model.transmit(tx, self._noise_metric,self._rate)
         return rx

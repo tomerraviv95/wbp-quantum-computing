@@ -1,5 +1,5 @@
-import torch
 import numpy as np
+import torch
 
 
 def initialize_w_init(input_output_layer_size, neurons, code_pcm):

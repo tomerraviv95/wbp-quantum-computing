@@ -1,6 +1,5 @@
 import random
 from collections import namedtuple
-from typing import List, Tuple
 
 import numpy as np
 import torch
@@ -62,7 +61,7 @@ class Evaluator(object):
             cx, tx, rx = self.test_channel_dataset.__getitem__()
             # get current word and datasets
             with torch.no_grad():
-                decoded_words = self.decoder.forward(rx.float())
+                decoded_words = self.decoder.forward(rx)
             ber, errors = calculate_error_rate(decoded_words, cx)
             total_errors += errors
             total_ber += ber
@@ -70,6 +69,7 @@ class Evaluator(object):
         total_ber /= n_decoding
         print(f'Final bit error rate: {total_ber}')
         return total_ber
+
 
 if __name__ == "__main__":
     evaluator = Evaluator()

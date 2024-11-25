@@ -15,10 +15,10 @@ class DecoderTrainer(nn.Module):
     def __init__(self):
         super().__init__()
         self.softmax = torch.nn.Softmax(dim=1)  # Single symbol probability inference
-        self.odd_llr_mask_only = False
+        self.odd_llr_mask_only = True
         self.even_mask_only = True
         self.multiloss_output_mask_only = True
-        self.output_mask_only = True
+        self.output_mask_only = False
         self.multi_loss_flag = True
         self.iteration_num = ITERATIONS
         self._code_bits = conf.code_bits

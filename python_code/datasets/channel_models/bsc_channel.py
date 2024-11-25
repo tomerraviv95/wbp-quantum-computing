@@ -8,7 +8,7 @@ conf = Config()
 class BSCChannel:
 
     @staticmethod
-    def transmit(tx: np.ndarray, p: float) -> np.ndarray:
+    def transmit(tx: np.ndarray, p: float, rate: float) -> np.ndarray:
         """
         :param tx: to transmit symbol words
         :param p: probability to flip

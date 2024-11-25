@@ -17,12 +17,12 @@ class ChannelModelDataset(Dataset):
     Returns (transmitted, received) batch.
     """
 
-    def __init__(self,):
+    def __init__(self, ):
         self.blocks_num = conf.blocks_num
         self.generator = Generator()
         self.encoder = Encoder(conf.code_bits, conf.message_bits, conf.code_type)
         self.modulator = MODULATION_DICT[conf.modulation_type]
-        self.transmitter = Transmitter(conf.channel_model)
+        self.transmitter = Transmitter(conf.channel_model, conf.message_bits / conf.code_bits)
 
     def get_snr_data(self) -> Tuple[np.array, np.array, np.array]:
         mx = self.generator.generate()
