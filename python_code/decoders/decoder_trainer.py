@@ -8,7 +8,7 @@ from python_code.utils.coding_utils import get_code_pcm_and_gm
 
 ITERATIONS = 5
 EPOCHS = 1000
-LR = 1e-3
+LR = 1e-4
 
 
 class DecoderTrainer(nn.Module):

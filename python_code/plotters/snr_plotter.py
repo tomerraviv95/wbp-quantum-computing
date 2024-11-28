@@ -17,6 +17,10 @@ mpl.rcParams['legend.fontsize'] = 16
 mpl.rcParams['mathtext.fontset'] = 'stix'
 mpl.rcParams['font.family'] = 'STIXGeneral'
 
+METHODS_TO_COLORS = {'hd': 'red', 'bp': 'green', 'wbp': 'blue'}
+METHODS_TO_MARKERS = {'hd': 'p', 'bp': 'o', 'wbp': 's'}
+METHODS_TO_LINESTYLES = {'hd': '-.', 'bp': '-', 'wbp': '--'}
+
 
 def snr_plotter(methods):
     """
@@ -26,10 +30,10 @@ def snr_plotter(methods):
         evaluator: Object with an evaluate() method that calculates BER at a specified SNR.
         snr_list (list): List of SNR values to evaluate.
     """
-
+    conf.set_value('channel_model','AWGN')
     # Plot BER vs. SNR
     plt.figure(figsize=(8, 6))
-    snr_list = list(range(3, 7, 1))
+    snr_list = list(range(3, 9, 1))
     for method in methods:
         print(f'Decoding Method: {method}')
         conf.set_value('decoder_type', method)  # Set the method value in the config
@@ -41,7 +45,8 @@ def snr_plotter(methods):
             ber = evaluator.evaluate()
             ber_values.append(ber)
             print(f"SNR: {snr} dB, BER: {ber}")
-        plt.plot(snr_list, ber_values, marker='o', linestyle='-', color='b', label=str(evaluator.decoder))
+        plt.plot(snr_list, ber_values, marker=METHODS_TO_MARKERS[method], linestyle=METHODS_TO_LINESTYLES[method],
+                 color=METHODS_TO_COLORS[method], label=str(evaluator.decoder))
     plt.yscale('log')  # Log scale for BER
     plt.xlabel("SNR (dB)")
     plt.ylabel("Bit Error Rate (BER)")
@@ -53,5 +58,5 @@ def snr_plotter(methods):
 
 
 if __name__ == "__main__":
-    methods = ['hd','bp', 'wbp']
+    methods = ['hd', 'bp', 'wbp']
     snr_plotter(methods)

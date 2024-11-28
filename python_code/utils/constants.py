@@ -18,6 +18,7 @@ class DecoderType(Enum):
     bp = 'bp'
     wbp = 'wbp'
     hd = 'hd'
+    hard_bp = 'hard_bp'
 
 
 class ModulationType(Enum):
