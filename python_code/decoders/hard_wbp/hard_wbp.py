@@ -75,6 +75,7 @@ class BpDecoder:
         :param syndrome: Syndrome vector
         :return: Decoded vector
         """
+        decoding = np.zeros(self.bit_count)
         # Main iteration loop
         for it in range(1, self.max_iterations + 1):
             candidate_syndrome = np.zeros(self.check_count, dtype=bool)
@@ -93,8 +94,10 @@ class BpDecoder:
                     self.check_to_bit[i, j] *= temp
                     message_sign = -1.0 if syndrome[i] != 0 else 1.0
                     # Compute check to bit message
+                    x = self.check_to_bit[i, j]
+                    x = max(min(x, 0.9999999), -0.9999999)
                     self.check_to_bit[i, j] = message_sign * math.log(
-                        (1 + self.check_to_bit[i, j]) / (1 - self.check_to_bit[i, j])
+                        (1 + x) / (1 - x)
                     )
                     # Update temporary product
                     temp *= math.tanh(self.bit_to_check[i, j] / 2)
@@ -144,7 +147,7 @@ class HardWBPDecoder(DecoderTrainer):
         )
 
     def __str__(self):
-        return 'Binary WBP Decoding'
+        return 'Translated Binary BP Decoding'
 
     def forward(self, x, mode: Phase = Phase.TEST):
         """

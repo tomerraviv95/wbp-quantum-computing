@@ -22,9 +22,9 @@ mpl.rcParams['legend.fontsize'] = 16
 mpl.rcParams['mathtext.fontset'] = 'stix'
 mpl.rcParams['font.family'] = 'STIXGeneral'
 
-METHODS_TO_COLORS = {'hd': 'red', 'hard_bp': 'green', 'wbp': 'blue'}
-METHODS_TO_MARKERS = {'hd': 'p', 'hard_bp': 'o', 'wbp': 's'}
-METHODS_TO_LINESTYLES = {'hd': '-.', 'hard_bp': '-', 'wbp': '--'}
+METHODS_TO_COLORS = {'hd': 'red', 'hard_bp': 'green', 'hard_wbp': 'blue'}
+METHODS_TO_MARKERS = {'hd': 'p', 'hard_bp': 'o', 'hard_wbp': 's'}
+METHODS_TO_LINESTYLES = {'hd': '-.', 'hard_bp': '-', 'hard_wbp': '--'}
 
 
 def plot_ber_vs_flip_prob(methods):
@@ -36,7 +36,7 @@ def plot_ber_vs_flip_prob(methods):
         flip_probs (list): List of flipping probabilities to evaluate.
     """
     conf.set_value('channel_model', 'BSC')
-    flip_probs = [0.0001, 0.001, 0.005, 0.01, 0.025]  # Example flipping prob
+    flip_probs = [0.001, 0.005, 0.01, 0.025]  # Example flipping prob
     # Plot BER vs. SNR
     plt.figure(figsize=(8, 6))
     for method in methods:
@@ -64,5 +64,5 @@ def plot_ber_vs_flip_prob(methods):
 
 
 if __name__ == "__main__":
-    methods = ['hd', 'hard_bp']
+    methods = ['hd', 'hard_bp', 'hard_wbp']
     plot_ber_vs_flip_prob(methods)
