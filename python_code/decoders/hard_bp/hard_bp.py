@@ -19,10 +19,12 @@ class HardBPDecoder(DecoderTrainer):
             max_iter (int): Maximum number of iterations for belief propagation.
         """
         super().__init__()
-        self.max_iter = 5
+        self.max_iter = 100
+        print('------------------')
+        print(conf.p)
         self.model = BpDecoder(
             self.code_pcm.astype(int),  # the parity check matrix
-            error_rate=0.1,  # the error rate on each bit
+            error_rate=conf.p,  # the error rate on each bit
             max_iter=self.max_iter,  # the maximum iteration depth for BP
             bp_method="product_sum",  # BP method. The other option is `minimum_sum'
         )

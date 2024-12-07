@@ -55,7 +55,7 @@ class Evaluator(object):
         total_errors = 0
         n_decoding = 0
         total_ber = 0
-        while total_errors < 1000:
+        while total_errors < 500:
             if n_decoding > 0:
                 print(f"Times: {n_decoding},Errors: {total_errors}, Ber so far: {total_ber / n_decoding}")
             # draw words for a given snr

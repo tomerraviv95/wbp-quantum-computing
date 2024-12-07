@@ -1,5 +1,7 @@
 import matplotlib as mpl
 
+from dir_definitions import RESULTS_DIR
+
 mpl.use('TkAgg')
 import matplotlib.pyplot as plt
 
@@ -56,7 +58,8 @@ def plot_ber_vs_flip_prob(methods):
     plt.title(f"{conf.code_type} ({conf.code_bits},{conf.message_bits}) - {conf.channel_model}")
     plt.grid(True, which="both", linestyle="--", linewidth=0.5)
     plt.legend()
-    plt.savefig(f'ber_vs_flip_prob_{conf.channel_model}_{conf.code_type}_{conf.code_bits}_{conf.message_bits}.png')
+    plt.savefig(
+        f'{RESULTS_DIR}/ber_vs_flip_prob_{conf.channel_model}_{conf.code_type}_{conf.code_bits}_{conf.message_bits}.png')
     plt.show()
 
 
