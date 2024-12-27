@@ -1,15 +1,15 @@
 # general
-seed: 4 # run seed
+seed: 42 # run seed
 
 # coding hyperparams
-blocks_num: 100 # number of validation frames. values: int.
-code_type: 'BCH' # ['BCH','POLAR']
+blocks_num: 1 # number of validation frames. values: int.
+code_type: 'BCH' # ['BCH','POLAR','LDPC']
 code_bits: 127
 message_bits: 64
 decoder_type: 'hard_wbp' # ['bp','wbp','hd','hard_bp','hard_wbp']
 
 # datasets
-channel_model: 'BSC' # ['AWGN','BSC']
-snr: 8 # validation snr value. values: float.
 modulation_type: 'BPSK' # ['BPSK','QPSK','EightPSK']
-p: 0.005
+channel_model: 'BSC' # ['AWGN','BSC']
+snr: 8 # snr value for the AWGN channel. values: float.
+p: 0.1 # p value for the BSC channel

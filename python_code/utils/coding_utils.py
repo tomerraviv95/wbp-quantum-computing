@@ -2,13 +2,14 @@
 
 import os
 from enum import Enum
-
+import numba
 import numpy as np
 
 
 class CODE_TYPE(Enum):
     POLAR = 'POLAR'
     BCH = 'BCH'
+    LDPC = 'LDPC'
 
 
 def row_reduce(mat, ncols=None):
@@ -39,7 +40,6 @@ def get_generator(pc_matrix_):
 
 
 def get_standard_form(pc_matrix):
-    pc_matrix = pc_matrix.astype(bool)
     next_col = min(pc_matrix.shape)
     for ii in range(min(pc_matrix.shape)):
         while True:
@@ -57,18 +57,22 @@ def get_standard_form(pc_matrix):
         pc_matrix[other_rows] = pc_matrix[other_rows] ^ pc_matrix[ii]
     return pc_matrix.astype(int)
 
-
 def get_code_pcm_and_gm(bits_num, message_bits_num, ecc_mat_path, code_type, standard_form=True):
     pc_matrix_path = os.path.join(ecc_mat_path, f'{code_type}_{bits_num}_{message_bits_num}')
+    print('loading code matrices...')
     if code_type in [CODE_TYPE.POLAR.name, CODE_TYPE.BCH.name]:
         code_pcm = np.loadtxt(pc_matrix_path + '.txt')
+        if standard_form:
+            code_pcm = get_standard_form(code_pcm.astype(bool))
+            code_gm = np.concatenate([code_pcm[:, min(code_pcm.shape):].transpose(), np.eye(message_bits_num)],
+                                     axis=1)
+        else:
+            code_gm = get_generator(code_pcm)
+    elif code_type == CODE_TYPE.LDPC.name:
+        code_pcm = np.load(pc_matrix_path + '.npy').astype(bool)
+        code_gm = np.concatenate([code_pcm[:, min(code_pcm.shape):].transpose(), np.eye(message_bits_num)],
+                                 axis=1).astype(bool)
     else:
         raise Exception(f'Code of type {code_type} is not supported!!!')
-    if standard_form:
-        code_pcm = get_standard_form(code_pcm).astype(int)
-        code_gm = np.concatenate([code_pcm[:, min(code_pcm.shape):].transpose(), np.eye(message_bits_num)],
-                                 axis=1).astype(int)
-    else:
-        code_gm = get_generator(code_pcm)
-    assert np.all(np.mod((np.matmul(code_gm, code_pcm.transpose())), 2) == 0) and np.sum(code_gm) > 0
-    return code_pcm.astype(np.float32), code_gm.astype(np.float32)
+    print('finished loading code matrices')
+    return code_pcm.astype(bool), code_gm.astype(bool)
